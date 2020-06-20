@@ -1,0 +1,32 @@
+server:
+  port: 8040    # 配置服务器的默认端口是 8888， 如果修改了默认端口，
+                # 则客户端项目中就不能在application.yml或application.properties
+                # 中配置spring.cloud.config.uri，必须在bootstrap.yml或是bootstrap.properties中配置，
+                # 原因是bootstrap开头的配置文件会优先加载和配置。
+
+spring:
+  application:
+    # 注册中心应用名称
+    name:  template-zuul
+  cloud:
+    config:
+      # 读取后缀
+      profile: dev
+      # 读取config-server注册地址
+      discovery:
+        service-id: template-config
+        enabled: true
+
+# eureka服务注册地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka
+
+# 配置手动实时刷新
+#managementendpoints.web.exposure.include=*
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
